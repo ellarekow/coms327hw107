@@ -38,7 +38,3 @@ clean:
 clobber: clean
 	@$(ECHO) Removing backup files
 	@$(RM) *~ \#* *pgm
-
-etags:
-	@$(ECHO) Updating TAGS
-	@etags *.[ch]

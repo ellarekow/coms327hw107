@@ -10,7 +10,8 @@ static char *next_token(char *start, char delim)
   int i;
   static char *s;
 
-  if (start) {
+  if (start)
+  {
     s = start;
   }
 
@@ -42,40 +43,55 @@ void db_parse(bool print)
   int prefix_len;
   int j;
   int count;
-  
+
   i = (strlen(getenv("HOME")) +
        strlen("/.poke327/pokedex/pokedex/data/csv/") + 1);
-  prefix = (char *) malloc(i);
+  prefix = (char *)malloc(i);
   strcpy(prefix, getenv("HOME"));
   strcat(prefix, "/.poke327/pokedex/pokedex/data/csv/");
 
-  if (stat(prefix, &buf)) {
+  if (stat(prefix, &buf))
+  {
     free(prefix);
     prefix = NULL;
   }
 
-  if (!prefix && !stat("/share/cs327", &buf)) {
+  if (!prefix && !stat("/share/cs327", &buf))
+  {
     prefix = strdup("/share/cs327/pokedex/pokedex/data/csv/");
-  } else if (!prefix) {
+  }
+  else if (!prefix)
+  {
     // Your third location goes here, if needed.
     // prefix is freed later, so be sure you malloc it
   }
 
-  //No error checking on file load from here on out.  Missing
-  //files are "user error".
+  // No error checking on file load from here on out.  Missing
+  if (stat(prefix, &buf))
+  {
+    printf("Error: no path defined\n");
+    return;
+  }
+  // files are "user error".
   prefix_len = strlen(prefix);
 
-  prefix = (char *) realloc(prefix, prefix_len + strlen("pokemon.csv") + 1);
+  prefix = (char *)realloc(prefix, prefix_len + strlen("pokemon.csv") + 1);
   strcpy(prefix + prefix_len, "pokemon.csv");
-  
+
   f = fopen(prefix, "r");
 
-  //No null byte copied here, so prefix is not technically a string anymore.
-  prefix = (char *) realloc(prefix, prefix_len + 1);
+  if (!f)
+  {
+    printf("Error, could not find file\n");
+    return;
+  }
+  // No null byte copied here, so prefix is not technically a string anymore.
+  prefix = (char *)realloc(prefix, prefix_len + 1);
 
   fgets(line, 80, f);
-  
-  for (i = 1; i <= 1092; i++) {
+
+  for (i = 1; i <= 1092; i++)
+  {
     fgets(line, 80, f);
     pokemon[i].id = atoi(next_token(line, ','));
     strncpy(pokemon[i].identifier, next_token(NULL, ','), 30);
@@ -85,65 +101,69 @@ void db_parse(bool print)
     pokemon[i].base_experience = atoi(next_token(NULL, ','));
     pokemon[i].order = atoi(next_token(NULL, ','));
     pokemon[i].is_default = atoi(next_token(NULL, ','));
-  }  
+  }
 
   fclose(f);
-  
-  if (print) {
-    for (i = 0; i < 1092; i++) {
+
+  if (print)
+  {
+    for (i = 0; i < 1092; i++)
+    {
       printf("%d %s %d %d %d %d %d %d\n", pokemon[i].id, pokemon[i].identifier,
              pokemon[i].species_id, pokemon[i].height, pokemon[i].weight,
              pokemon[i].base_experience, pokemon[i].order, pokemon[i].is_default);
     }
   }
 
-
-  prefix = (char *) realloc(prefix, prefix_len + strlen("moves.csv") + 1);
+  prefix = (char *)realloc(prefix, prefix_len + strlen("moves.csv") + 1);
   strcpy(prefix + prefix_len, "moves.csv");
-  
+
   f = fopen(prefix, "r");
 
-  //No null byte copied here, so prefix is not technically a string anymore.
-  prefix = (char *) realloc(prefix, prefix_len + 1);
+  // No null byte copied here, so prefix is not technically a string anymore.
+  prefix = (char *)realloc(prefix, prefix_len + 1);
 
   fgets(line, 800, f);
-  
-  for (i = 1; i <= 844; i++) {
+
+  for (i = 1; i <= 844; i++)
+  {
     fgets(line, 800, f);
     moves[i].id = atoi((tmp = next_token(line, ',')));
     strcpy(moves[i].identifier, (tmp = next_token(NULL, ',')));
     tmp = next_token(NULL, ',');
     moves[i].generation_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    moves[i].type_id =  *tmp ? atoi(tmp) : -1;
+    moves[i].type_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    moves[i].power =  *tmp ? atoi(tmp) : -1;
+    moves[i].power = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    moves[i].pp =  *tmp ? atoi(tmp) : -1;
+    moves[i].pp = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    moves[i].accuracy =  *tmp ? atoi(tmp) : -1;
+    moves[i].accuracy = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    moves[i].priority =  *tmp ? atoi(tmp) : -1;
+    moves[i].priority = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    moves[i].target_id =  *tmp ? atoi(tmp) : -1;
+    moves[i].target_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    moves[i].damage_class_id =  *tmp ? atoi(tmp) : -1;
+    moves[i].damage_class_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    moves[i].effect_id =  *tmp ? atoi(tmp) : -1;
+    moves[i].effect_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    moves[i].effect_chance =  *tmp ? atoi(tmp) : -1;
+    moves[i].effect_chance = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    moves[i].contest_type_id =  *tmp ? atoi(tmp) : -1;
+    moves[i].contest_type_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    moves[i].contest_effect_id =  *tmp ? atoi(tmp) : -1;
+    moves[i].contest_effect_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    moves[i].super_contest_effect_id =  *tmp ? atoi(tmp) : -1;
+    moves[i].super_contest_effect_id = *tmp ? atoi(tmp) : -1;
   }
 
   fclose(f);
-  
-  if (print) {
-    for (i = 0; i < 844; i++) {
+
+  if (print)
+  {
+    for (i = 0; i < 844; i++)
+    {
       printf("%d %s %d %d %d %d %d %d %d %d %d %d %d %d %d\n",
              moves[i].id,
              moves[i].identifier,
@@ -163,17 +183,24 @@ void db_parse(bool print)
     }
   }
 
-  prefix = (char *) realloc(prefix, prefix_len + strlen("pokemon_moves.csv") + 1);
+  prefix = (char *)realloc(prefix, prefix_len + strlen("pokemon_moves.csv") + 1);
   strcpy(prefix + prefix_len, "pokemon_moves.csv");
-  
+
   f = fopen(prefix, "r");
 
-  //No null byte copied here, so prefix is not technically a string anymore.
-  prefix = (char *) realloc(prefix, prefix_len + 1);
+  if (!f)
+  {
+    printf("Error, could not find file\n");
+    return;
+  }
+
+  // No null byte copied here, so prefix is not technically a string anymore.
+  prefix = (char *)realloc(prefix, prefix_len + 1);
 
   fgets(line, 800, f);
-  
-  for (i = 1; i <= 528238; i++) {
+
+  for (i = 1; i <= 528238; i++)
+  {
     fgets(line, 800, f);
     tmp = next_token(line, ',');
     pokemon_moves[i].pokemon_id = *tmp ? atoi(tmp) : -1;
@@ -191,8 +218,10 @@ void db_parse(bool print)
 
   fclose(f);
 
-  if (print) {
-    for (i = 0; i < 528238; i++) {
+  if (print)
+  {
+    for (i = 0; i < 528238; i++)
+    {
       printf("%d %d %d %d %d %d\n",
              pokemon_moves[i].pokemon_id,
              pokemon_moves[i].version_group_id,
@@ -203,62 +232,71 @@ void db_parse(bool print)
     }
   }
 
-  prefix = (char *) realloc(prefix, prefix_len + strlen("pokemon_species.csv") + 1);
+  prefix = (char *)realloc(prefix, prefix_len + strlen("pokemon_species.csv") + 1);
   strcpy(prefix + prefix_len, "pokemon_species.csv");
-  
+
   f = fopen(prefix, "r");
 
-  //No null byte copied here, so prefix is not technically a string anymore.
-  prefix = (char *) realloc(prefix, prefix_len + 1);
+  if (!f)
+  {
+    printf("Error, could not find file\n");
+    return;
+  }
+
+  // No null byte copied here, so prefix is not technically a string anymore.
+  prefix = (char *)realloc(prefix, prefix_len + 1);
 
   fgets(line, 800, f);
-  
-  for (i = 1; i <= 898; i++) {
+
+  for (i = 1; i <= 898; i++)
+  {
     fgets(line, 800, f);
     species[i].id = atoi((tmp = next_token(line, ',')));
     strcpy(species[i].identifier, (tmp = next_token(NULL, ',')));
     tmp = next_token(NULL, ',');
     species[i].generation_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].evolves_from_species_id =  *tmp ? atoi(tmp) : -1;
+    species[i].evolves_from_species_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].evolution_chain_id =  *tmp ? atoi(tmp) : -1;
+    species[i].evolution_chain_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].color_id =  *tmp ? atoi(tmp) : -1;
+    species[i].color_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].shape_id =  *tmp ? atoi(tmp) : -1;
+    species[i].shape_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].habitat_id =  *tmp ? atoi(tmp) : -1;
+    species[i].habitat_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].gender_rate =  *tmp ? atoi(tmp) : -1;
+    species[i].gender_rate = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].capture_rate =  *tmp ? atoi(tmp) : -1;
+    species[i].capture_rate = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].base_happiness =  *tmp ? atoi(tmp) : -1;
+    species[i].base_happiness = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].is_baby =  *tmp ? atoi(tmp) : -1;
+    species[i].is_baby = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].hatch_counter =  *tmp ? atoi(tmp) : -1;
+    species[i].hatch_counter = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].has_gender_differences =  *tmp ? atoi(tmp) : -1;
+    species[i].has_gender_differences = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].growth_rate_id =  *tmp ? atoi(tmp) : -1;
+    species[i].growth_rate_id = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].forms_switchable =  *tmp ? atoi(tmp) : -1;
+    species[i].forms_switchable = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].is_legendary =  *tmp ? atoi(tmp) : -1;
+    species[i].is_legendary = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].is_mythical =  *tmp ? atoi(tmp) : -1;
+    species[i].is_mythical = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].order =  *tmp ? atoi(tmp) : -1;
+    species[i].order = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    species[i].conquest_order =  *tmp ? atoi(tmp) : -1;
+    species[i].conquest_order = *tmp ? atoi(tmp) : -1;
   }
 
   fclose(f);
 
-  if (print) {
-    for (i = 0; i <= 898; i++) {
+  if (print)
+  {
+    for (i = 0; i <= 898; i++)
+    {
       printf("%d %s %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n",
              species[i].id,
              species[i].identifier,
@@ -283,30 +321,38 @@ void db_parse(bool print)
     }
   }
 
-
-  prefix = (char *) realloc(prefix, prefix_len + strlen("experience.csv") + 1);
+  prefix = (char *)realloc(prefix, prefix_len + strlen("experience.csv") + 1);
   strcpy(prefix + prefix_len, "experience.csv");
-  
+
   f = fopen(prefix, "r");
 
-  //No null byte copied here, so prefix is not technically a string anymore.
-  prefix = (char *) realloc(prefix, prefix_len + 1);
+  if (!f)
+  {
+    printf("Error, could not find file\n");
+    return;
+  }
+
+  // No null byte copied here, so prefix is not technically a string anymore.
+  prefix = (char *)realloc(prefix, prefix_len + 1);
 
   fgets(line, 800, f);
-  
-  for (i = 1; i <= 600; i++) {
+
+  for (i = 1; i <= 600; i++)
+  {
     fgets(line, 800, f);
     experience[i].growth_rate_id = atoi((tmp = next_token(line, ',')));
     tmp = next_token(NULL, ',');
     experience[i].level = *tmp ? atoi(tmp) : -1;
     tmp = next_token(NULL, ',');
-    experience[i].experience =  *tmp ? atoi(tmp) : -1;
+    experience[i].experience = *tmp ? atoi(tmp) : -1;
   }
 
   fclose(f);
 
-  if (print) {
-    for (i = 0; i <= 600; i++) {
+  if (print)
+  {
+    for (i = 0; i <= 600; i++)
+    {
       printf("%d %d %d\n",
              experience[i].growth_rate_id,
              experience[i].level,
@@ -314,17 +360,24 @@ void db_parse(bool print)
     }
   }
 
-  prefix = (char *) realloc(prefix, prefix_len + strlen("type_names.csv") + 1);
+  prefix = (char *)realloc(prefix, prefix_len + strlen("type_names.csv") + 1);
   strcpy(prefix + prefix_len, "type_names.csv");
-  
+
   f = fopen(prefix, "r");
 
-  //No null byte copied here, so prefix is not technically a string anymore.
-  prefix = (char *) realloc(prefix, prefix_len + 1);
+  if (!f)
+  {
+    printf("Error, could not find file\n");
+    return;
+  }
+
+  // No null byte copied here, so prefix is not technically a string anymore.
+  prefix = (char *)realloc(prefix, prefix_len + 1);
 
   fgets(line, 800, f);
-  
-  for (i = 1; i <= 18; i++) {
+
+  for (i = 1; i <= 18; i++)
+  {
     fgets(line, 800, f); //  1
     fgets(line, 800, f); //  3
     fgets(line, 800, f); //  4
@@ -333,8 +386,10 @@ void db_parse(bool print)
     fgets(line, 800, f); //  7
     fgets(line, 800, f); //  8
     fgets(line, 800, f); //  9 - English
-    for (j = count = 0; count < 2; j++) {
-      if (line[j] == ',') {
+    for (j = count = 0; count < 2; j++)
+    {
+      if (line[j] == ',')
+      {
         count++;
       }
     }
@@ -346,8 +401,10 @@ void db_parse(bool print)
 
   fclose(f);
 
-  if (print) {
-    for (i = 1; i <= 18; i++) {
+  if (print)
+  {
+    for (i = 1; i <= 18; i++)
+    {
       printf("%s\n", types[i]);
     }
   }
