@@ -1,11 +1,11 @@
 #ifndef POKE327_H
-# define POKE327_H
+#define POKE327_H
 
-# include <stdlib.h>
-# include <assert.h>
+#include <stdlib.h>
+#include <assert.h>
 
-# include "heap.h"
-# include "character.h"
+#include "heap.h"
+#include "character.h"
 
 #define malloc(size) ({          \
   void *_tmp;                    \
@@ -15,15 +15,16 @@
 
 /* Returns true if random float in [0,1] is less than *
  * numerator/denominator.  Uses only integer math.    */
-# define rand_under(numerator, denominator) \
+#define rand_under(numerator, denominator) \
   (rand() < ((RAND_MAX / denominator) * numerator))
 
 /* Returns random integer in [min, max]. */
-# define rand_range(min, max) ((rand() % (((max) + 1) - (min))) + (min))
+#define rand_range(min, max) ((rand() % (((max) + 1) - (min))) + (min))
 
-# define UNUSED(f) ((void) f)
+#define UNUSED(f) ((void)f)
 
-typedef enum dim {
+typedef enum dim
+{
   dim_x,
   dim_y,
   num_dims
@@ -31,22 +32,23 @@ typedef enum dim {
 
 typedef int16_t pair_t[num_dims];
 
-#define MAP_X              80
-#define MAP_Y              21
-#define MIN_TREES          10
-#define MIN_BOULDERS       10
-#define TREE_PROB          95
-#define BOULDER_PROB       95
-#define WORLD_SIZE         401
-#define MIN_TRAINERS       7   
-#define ADD_TRAINER_PROB   50
+#define MAP_X 80
+#define MAP_Y 21
+#define MIN_TREES 10
+#define MIN_BOULDERS 10
+#define TREE_PROB 95
+#define BOULDER_PROB 95
+#define WORLD_SIZE 401
+#define MIN_TRAINERS 7
+#define ADD_TRAINER_PROB 50
 
 #define mappair(pair) (m->map[pair[dim_y]][pair[dim_x]])
 #define mapxy(x, y) (m->map[y][x])
 #define heightpair(pair) (m->height[pair[dim_y]][pair[dim_x]])
 #define heightxy(x, y) (m->height[y][x])
 
-typedef enum __attribute__ ((__packed__)) terrain_type {
+typedef enum __attribute__((__packed__)) terrain_type
+{
   ter_boulder,
   ter_tree,
   ter_path,
@@ -57,11 +59,12 @@ typedef enum __attribute__ ((__packed__)) terrain_type {
   ter_mountain,
   ter_forest,
   ter_exit,
+  ter_poke_grass,
   num_terrain_types
 } terrain_type_t;
 
-
-typedef enum __attribute__ ((__packed__)) movement_type {
+typedef enum __attribute__((__packed__)) movement_type
+{
   move_hiker,
   move_rival,
   move_pace,
@@ -72,7 +75,8 @@ typedef enum __attribute__ ((__packed__)) movement_type {
   num_movement_types
 } movement_type_t;
 
-typedef enum __attribute__ ((__packed__)) character_type {
+typedef enum __attribute__((__packed__)) character_type
+{
   char_pc,
   char_hiker,
   char_rival,
@@ -82,8 +86,9 @@ typedef enum __attribute__ ((__packed__)) character_type {
 
 class Character;
 
-class Map {
- public:
+class Map
+{
+public:
   terrain_type_t map[MAP_Y][MAP_X];
   uint8_t height[MAP_Y][MAP_X];
   Character *cmap[MAP_Y][MAP_X];
@@ -93,8 +98,9 @@ class Map {
 };
 
 /* Here instead of character.h to abvoid including character.h */
-class Character {
- public:
+class Character
+{
+public:
   pair_t pos;
   char symbol;
   int next_turn;
@@ -102,20 +108,23 @@ class Character {
   virtual ~Character() {}
 };
 
-class Pc : public Character {
- public:
+class Pc : public Character
+{
+public:
 };
 
-class Npc : public Character {
- public:
+class Npc : public Character
+{
+public:
   character_type_t ctype;
   movement_type_t mtype;
   int defeated;
   pair_t dir;
 };
 
-class World {
- public:
+class World
+{
+public:
   Map *world[WORLD_SIZE][WORLD_SIZE];
   pair_t cur_idx;
   Map *cur_map;
@@ -137,13 +146,15 @@ extern World world;
 
 extern pair_t all_dirs[8];
 
-#define rand_dir(dir) {     \
-  int _i = rand() & 0x7;    \
-  dir[0] = all_dirs[_i][0]; \
-  dir[1] = all_dirs[_i][1]; \
-}
+#define rand_dir(dir)         \
+  {                           \
+    int _i = rand() & 0x7;    \
+    dir[0] = all_dirs[_i][0]; \
+    dir[1] = all_dirs[_i][1]; \
+  }
 
-typedef struct path {
+typedef struct path
+{
   heap_node_t *hn;
   uint8_t pos[2];
   uint8_t from[2];

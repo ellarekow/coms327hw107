@@ -1,7 +1,8 @@
 #ifndef DB_PARSE_H
-# define DB_PARSE_H
+#define DB_PARSE_H
 
-struct pokemon_db {
+struct pokemon_db
+{
   int id;
   char identifier[30];
   int species_id;
@@ -12,7 +13,8 @@ struct pokemon_db {
   int is_default;
 };
 
-struct move_db {
+struct move_db
+{
   int id;
   char identifier[30];
   int generation_id;
@@ -30,7 +32,8 @@ struct move_db {
   int super_contest_effect_id;
 };
 
-struct pokemon_move_db {
+struct pokemon_move_db
+{
   int pokemon_id;
   int version_group_id;
   int move_id;
@@ -39,7 +42,8 @@ struct pokemon_move_db {
   int order;
 };
 
-struct pokemon_species_db {
+struct pokemon_species_db
+{
   int id;
   char identifier[30];
   int generation_id;
@@ -62,10 +66,19 @@ struct pokemon_species_db {
   int conquest_order;
 };
 
-struct experience_db {
+struct experience_db
+{
   int growth_rate_id;
   int level;
   int experience;
+};
+
+struct pokemon_stats_db
+{
+  int id;
+  int stat_id;
+  int base_stat;
+  int effort;
 };
 
 extern pokemon_move_db pokemon_moves[528239];
@@ -74,6 +87,7 @@ extern char *types[19];
 extern move_db moves[845];
 extern pokemon_species_db species[899];
 extern experience_db experience[601];
+extern pokemon_stats_db stats[6553];
 
 void db_parse(bool print);
 

@@ -31,6 +31,7 @@ char *types[19];
 move_db moves[845];
 pokemon_species_db species[899];
 experience_db experience[601];
+pokemon_stats_db stats[6553];
 
 void db_parse(bool print)
 {
@@ -407,6 +408,31 @@ void db_parse(bool print)
     {
       printf("%s\n", types[i]);
     }
+  }
+
+  // SSTATS
+  prefix_len = strlen(prefix);
+
+  prefix = (char *)realloc(prefix, prefix_len + strlen("pokemon_stats.csv") + 1);
+  strcpy(prefix + prefix_len, "pokemon_stats.csv");
+
+  fgets(line, 800, f);
+
+  for (i = 1; i <= 6553; i++)
+  {
+    fgets(line, 800, f);
+
+    tmp = next_token(line, ',');
+    stats[i].id = *tmp ? atoi(tmp) : -1;
+
+    tmp = next_token(line, ',');
+    stats[i].stat_id = *tmp ? atoi(tmp) : -1;
+
+    tmp = next_token(line, ',');
+    stats[i].base_stat = *tmp ? atoi(tmp) : -1;
+
+    tmp = next_token(line, ',');
+    stats[i].effort = *tmp ? atoi(tmp) : -1;
   }
 
   free(prefix);
