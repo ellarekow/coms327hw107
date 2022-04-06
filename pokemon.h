@@ -5,11 +5,12 @@
 #include "db_parse.h"
 #include "character.h"
 #include <cstdlib>
+#include <stdint.h>
 
 class Pokemon
 {
 public:
-    Pokemon(int x, int y);
+    Pokemon();
     std::string name;
     int hp;
     int level;
@@ -18,7 +19,7 @@ public:
     pokemon_species_db spc;
 
     int healthCalc();
-    int levelCalc(int x, int y);
+    int levelCalc();
 };
 
 #endif

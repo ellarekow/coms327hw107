@@ -7,6 +7,7 @@
 #include "io.h"
 #include "character.h"
 #include "poke327.h"
+#include "pokemon.h"
 
 typedef struct io_message
 {
@@ -391,6 +392,22 @@ void io_pokemon_center()
   getch();
 }
 
+void io_pokemon()
+{
+  clear();
+  Pokemon pokemon = Pokemon();
+  int encouter = 1;
+  int input = 0;
+  while (encouter)
+  {
+    mvprintw(0, 0, "A wild %s appeared! \n Level: %d \n Health: %d \n", pokemon.name, pokemon.level, pokemon.hp);
+    input = getch();
+    if (input == 27)
+      clear();
+    encouter = 0;
+  }
+}
+
 void io_battle(Character *aggressor, Character *defender)
 {
   Npc *npc;
@@ -461,6 +478,12 @@ uint32_t move_pc_dir(uint32_t input, pair_t dest)
       io_pokemon_center();
     }
     break;
+  }
+  if (world.cur_map->map[dest[dim_y]][dest[dim_x]] == ter_poke_grass)
+  {
+    io_pokemon();
+    dest[dim_x] = world.pc.pos[dim_x];
+    dest[dim_y] = world.pc.pos[dim_y];
   }
 
   if ((world.cur_map->map[dest[dim_y]][dest[dim_x]] == ter_exit) &&
