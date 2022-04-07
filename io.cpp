@@ -399,7 +399,7 @@ void io_pokemon()
   int input = 0;
   while (encouter)
   {
-    mvprintw(0, 0, "A wild %s appeared! \n Level: %d \n Health: %d \n *press [esc] to leave\n", pokemon.name.c_str(), pokemon.level, pokemon.hp);
+    mvprintw(0, 0, "A wild %s appeared! \n Level: %d \n Health: %d \n attack: %d \n defense: %d speed: %d \n spedical attack %d \n special defense %d \n*press [esc] to leave\n", pokemon.name.c_str(), pokemon.level, pokemon.hp, pokemon.attack, pokemon.defense, pokemon.speed, pokemon.specialA, pokemon.specialD);
     input = getch();
     if (input == 27)
     {

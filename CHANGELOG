@@ -1,0 +1,41 @@
+commit 91383ab81d6e954e14cbf796cf0ce65c0b3aa3e5
+Author: ellarekow <ellarekow@gmail.com>
+Date:   Wed Apr 6 19:01:10 2022 -0500
+
+    Pokemon generates
+
+commit dba73a9e3d94bda172660772b11b5f779e82934d
+Author: ellarekow <ellarekow@gmail.com>
+Date:   Wed Apr 6 17:06:36 2022 -0500
+
+    Debugging stuff
+
+commit b9bb5e1ed4367c0692287647f01bd2c2b44d3d7a
+Author: ellarekow <ellarekow@gmail.com>
+Date:   Wed Apr 6 16:27:30 2022 -0500
+
+    IO logic
+
+commit b01238dd4909ef16391d31426ed0876eb12960e4
+Author: ellarekow <ellarekow@gmail.com>
+Date:   Wed Apr 6 15:44:25 2022 -0500
+
+    Pokemon building
+
+commit eecc5c3607ebfb1f6127bddd924382cee7d0de6a
+Author: ellarekow <ellarekow@gmail.com>
+Date:   Mon Apr 4 09:38:38 2022 -0500
+
+    Bug bounty fix
+
+commit 53d6bde1af8550626af10b358d24ba78b22fa55d
+Author: ellarekow <ellarekow@gmail.com>
+Date:   Mon Apr 4 08:30:57 2022 -0500
+
+    Init file import
+
+commit c38464d373e101650c02fd2e0b898cf439528414
+Author: Ella Rekow <just.ella2001@gmail.com>
+Date:   Mon Apr 4 08:29:16 2022 -0500
+
+    Initial commit

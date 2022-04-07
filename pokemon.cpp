@@ -6,15 +6,9 @@ Pokemon::Pokemon()
 {
     int id = rand() % 1093 + 1;
 
+    this->type = pokemon[id];
+
     int i;
-    i = 0;
-    do
-    {
-        i++;
-    } while (pokemon[i].id != id);
-
-    this->type = pokemon[i];
-
     // double check this logic
     i = 0;
     do
@@ -22,20 +16,71 @@ Pokemon::Pokemon()
         i++;
     } while (species[i].id != type.id);
 
-    // i = 0;
-    // do
-    // {
-    //     i++;
-    // } while (stats[i].id != type.id);
-
-    int base = 15;
-
-    if (stats[i].base_stat != 0)
-    {
-        base = stats[i].base_stat;
-    }
-
     this->spc = species[i];
+
+    i = 0;
+    do
+    {
+        i++;
+    } while (stats[i].id != type.id);
+
+    int stat_type = 0;
+    do
+    {
+        stat_type++;
+    } while (stats[i + stat_type].stat_id != 1);
+
+    int base = stats[i + stat_type].base_stat;
+
+    stat_type = 0;
+    do
+    {
+        stat_type++;
+    } while (stats[i + stat_type].stat_id != 2);
+
+    base = stats[i + stat_type].base_stat;
+
+    this->attack = otherStat(base);
+
+    stat_type = 0;
+    do
+    {
+        stat_type++;
+    } while (stats[i + stat_type].stat_id != 3);
+
+    base = stats[i + stat_type].base_stat;
+
+    this->defense = otherStat(base);
+
+    stat_type = 0;
+    do
+    {
+        stat_type++;
+    } while (stats[i + stat_type].stat_id != 4);
+
+    base = stats[i + stat_type].base_stat;
+
+    this->specialA = otherStat(base);
+
+    stat_type = 0;
+    do
+    {
+        stat_type++;
+    } while (stats[i + stat_type].stat_id != 5);
+
+    base = stats[i + stat_type].base_stat;
+
+    this->specialD = otherStat(base);
+
+    stat_type = 0;
+    do
+    {
+        stat_type++;
+    } while (stats[i + stat_type].stat_id != 6);
+
+    base = stats[i + stat_type].base_stat;
+
+    this->speed = otherStat(base);
 
     this->hp = healthCalc(base);
 
@@ -46,8 +91,17 @@ Pokemon::Pokemon()
 
 int Pokemon::healthCalc(int base)
 {
-    return ((((base)*2 * this->level) / 100) + this->level);
+    int iv = rand() % 16;
+    return (((((base + iv) * 2) * this->level) / 100) + this->level + 10);
 };
+
+int Pokemon::otherStat(int base)
+{
+    if (base == 0)
+        return 0;
+    int iv = rand() % 16;
+    return ((((base + iv) * 2) * this->level) / 100) + 5;
+}
 
 int Pokemon::levelCalc()
 {

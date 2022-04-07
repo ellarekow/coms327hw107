@@ -410,9 +410,6 @@ void db_parse(bool print)
     }
   }
 
-  // SSTATS
-  prefix_len = strlen(prefix);
-
   prefix = (char *)realloc(prefix, prefix_len + strlen("pokemon_stats.csv") + 1);
   strcpy(prefix + prefix_len, "pokemon_stats.csv");
 
@@ -442,6 +439,18 @@ void db_parse(bool print)
   }
 
   fclose(f);
+
+  if (print)
+  {
+    for (i = 0; i < 6552; i++)
+    {
+      printf("%d %d %d %d\n",
+             stats[i].id,
+             stats[i].stat_id,
+             stats[i].base_stat,
+             stats[i].effort);
+    }
+  }
 
   free(prefix);
 }

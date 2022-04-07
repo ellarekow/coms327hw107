@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Linux-g++"
+	BuildStamp="20220407-0044-Experimental"
+	Name="artemis"
+	Generator="ctest-3.23.0"
+	CompilerName="/usr/bin/g++"
+	CompilerVersion="11.2.0"
+	OSName="Linux"
+	Hostname="artemis"
+	OSRelease="5.16.11-76051611-generic"
+	OSVersion="#202202230823~1646248261~21.10~2b22243 SMP PREEMPT Wed Mar 2 20:"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="25"
+	ModelID="80"
+	ProcessorCacheSize="512"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="2047"
+	TotalPhysicalMemory="15423"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="3200"
+	>
+	<Testing>
+		<StartDateTime>Apr 06 19:44 CDT</StartDateTime>
+		<StartTestTime>1649292246</StartTestTime>
+		<TestList/>
+		<EndDateTime>Apr 06 19:44 CDT</EndDateTime>
+		<EndTestTime>1649292246</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

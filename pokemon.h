@@ -14,11 +14,17 @@ public:
     std::string name;
     int hp;
     int level;
+    int attack;
+    int defense;
+    int speed;
+    int specialA;
+    int specialD;
     bool isFemale;
     pokemon_db type;
     pokemon_species_db spc;
 
     int healthCalc(int base);
+    int otherStat(int base);
     int levelCalc();
 };
 
