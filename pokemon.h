@@ -18,7 +18,7 @@ public:
     pokemon_db type;
     pokemon_species_db spc;
 
-    int healthCalc();
+    int healthCalc(int base);
     int levelCalc();
 };
 

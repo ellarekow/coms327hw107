@@ -15,24 +15,38 @@ Pokemon::Pokemon()
 
     this->type = pokemon[i];
 
+    // double check this logic
     i = 0;
     do
     {
         i++;
-    } while (species[i].id != id);
+    } while (species[i].id != type.id);
+
+    // i = 0;
+    // do
+    // {
+    //     i++;
+    // } while (stats[i].id != type.id);
+
+    int base = 15;
+
+    if (stats[i].base_stat != 0)
+    {
+        base = stats[i].base_stat;
+    }
 
     this->spc = species[i];
 
-    this->hp = healthCalc();
+    this->hp = healthCalc(base);
 
     this->level = levelCalc();
 
     this->name = spc.identifier;
 };
 
-int Pokemon::healthCalc()
+int Pokemon::healthCalc(int base)
 {
-    return ((((this->type.base_experience) * 2 * this->level) / 100) + this->level);
+    return ((((base)*2 * this->level) / 100) + this->level);
 };
 
 int Pokemon::levelCalc()
@@ -40,13 +54,13 @@ int Pokemon::levelCalc()
     int16_t x, y;
     x = world.cur_idx[dim_x];
     y = world.cur_idx[dim_y];
-    if (x == 199 && y == 199)
+    if (x == 200 && y == 200)
         return 1;
     else
     {
-        int level = rand() % ((abs(200 - x) + abs(200 - y)) / 2) + 1;
-        if (level >= 100)
-            level = 100;
-        return level;
+        int lvl = rand() % ((abs(200 - x) + abs(200 - y)) / 2) + 1;
+        if (lvl >= 100)
+            lvl = 100;
+        return lvl;
     }
 }

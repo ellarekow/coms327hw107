@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/ellarekow/Documents/COMS327/coms327hw107/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/main.dir/character.cpp.o -c /home/ellarekow/Documents/COMS327/coms327hw107/character.cpp",
+  "file": "/home/ellarekow/Documents/COMS327/coms327hw107/character.cpp"
+},
+{
+  "directory": "/home/ellarekow/Documents/COMS327/coms327hw107/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/main.dir/db_parse.cpp.o -c /home/ellarekow/Documents/COMS327/coms327hw107/db_parse.cpp",
+  "file": "/home/ellarekow/Documents/COMS327/coms327hw107/db_parse.cpp"
+},
+{
+  "directory": "/home/ellarekow/Documents/COMS327/coms327hw107/build",
+  "command": "/usr/bin/gcc   -g -o CMakeFiles/main.dir/heap.c.o -c /home/ellarekow/Documents/COMS327/coms327hw107/heap.c",
+  "file": "/home/ellarekow/Documents/COMS327/coms327hw107/heap.c"
+},
+{
+  "directory": "/home/ellarekow/Documents/COMS327/coms327hw107/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/main.dir/io.cpp.o -c /home/ellarekow/Documents/COMS327/coms327hw107/io.cpp",
+  "file": "/home/ellarekow/Documents/COMS327/coms327hw107/io.cpp"
+},
+{
+  "directory": "/home/ellarekow/Documents/COMS327/coms327hw107/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/main.dir/poke327.cpp.o -c /home/ellarekow/Documents/COMS327/coms327hw107/poke327.cpp",
+  "file": "/home/ellarekow/Documents/COMS327/coms327hw107/poke327.cpp"
+},
+{
+  "directory": "/home/ellarekow/Documents/COMS327/coms327hw107/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/main.dir/pokemon.cpp.o -c /home/ellarekow/Documents/COMS327/coms327hw107/pokemon.cpp",
+  "file": "/home/ellarekow/Documents/COMS327/coms327hw107/pokemon.cpp"
+}
+]

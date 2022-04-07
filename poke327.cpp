@@ -546,12 +546,6 @@ static int map_terrain(Map *m, int8_t n, int8_t s, int8_t e, int8_t w)
     if (i == 0)
     {
       type = ter_grass;
-      int poke;
-      poke = rand() % 10;
-      if (poke == 1)
-      {
-        type = ter_poke_grass;
-      }
     }
     else if (i == num_grass)
     {

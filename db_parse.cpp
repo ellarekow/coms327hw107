@@ -416,24 +416,32 @@ void db_parse(bool print)
   prefix = (char *)realloc(prefix, prefix_len + strlen("pokemon_stats.csv") + 1);
   strcpy(prefix + prefix_len, "pokemon_stats.csv");
 
+  f = fopen(prefix, "r");
+
+  if (!f)
+  {
+    printf("Error, could not find file\n");
+    return;
+  }
+
+  prefix = (char *)realloc(prefix, prefix_len + 1);
+
   fgets(line, 800, f);
 
-  for (i = 1; i <= 6553; i++)
+  for (i = 1; i <= 6552; i++)
   {
     fgets(line, 800, f);
-
     tmp = next_token(line, ',');
     stats[i].id = *tmp ? atoi(tmp) : -1;
-
-    tmp = next_token(line, ',');
+    tmp = next_token(NULL, ',');
     stats[i].stat_id = *tmp ? atoi(tmp) : -1;
-
-    tmp = next_token(line, ',');
+    tmp = next_token(NULL, ',');
     stats[i].base_stat = *tmp ? atoi(tmp) : -1;
-
-    tmp = next_token(line, ',');
+    tmp = next_token(NULL, ',');
     stats[i].effort = *tmp ? atoi(tmp) : -1;
   }
+
+  fclose(f);
 
   free(prefix);
 }

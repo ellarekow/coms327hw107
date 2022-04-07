@@ -59,7 +59,6 @@ typedef enum __attribute__((__packed__)) terrain_type
   ter_mountain,
   ter_forest,
   ter_exit,
-  ter_poke_grass,
   num_terrain_types
 } terrain_type_t;
 

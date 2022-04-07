@@ -81,24 +81,24 @@ void io_queue_message(const char *format, ...)
 
 static void io_print_message_queue(uint32_t y, uint32_t x)
 {
-  while (io_head)
-  {
-    io_tail = io_head;
-    attron(COLOR_PAIR(COLOR_CYAN));
-    mvprintw(y, x, "%-80s", io_head->msg);
-    attroff(COLOR_PAIR(COLOR_CYAN));
-    io_head = io_head->next;
-    if (io_head)
-    {
-      attron(COLOR_PAIR(COLOR_CYAN));
-      mvprintw(y, x + 70, "%10s", " --more-- ");
-      attroff(COLOR_PAIR(COLOR_CYAN));
-      refresh();
-      getch();
-    }
-    free(io_tail);
-  }
-  io_tail = NULL;
+  // while (io_head && io_head->msg)
+  // {
+  //   io_tail = io_head;
+  //   attron(COLOR_PAIR(COLOR_CYAN));
+  //   mvprintw(y, x, "%-80s", "%s", io_head->msg);
+  //   attroff(COLOR_PAIR(COLOR_CYAN));
+  //   io_head = io_head->next;
+  //   if (io_head)
+  //   {
+  //     attron(COLOR_PAIR(COLOR_CYAN));
+  //     mvprintw(y, x + 70, "%10s", " --more-- ");
+  //     attroff(COLOR_PAIR(COLOR_CYAN));
+  //     refresh();
+  //     getch();
+  //   }
+  //   free(io_tail);
+  // }
+  // io_tail = NULL;
 }
 
 /**************************************************************************
@@ -195,7 +195,6 @@ void io_display()
           attroff(COLOR_PAIR(COLOR_RED));
           break;
         case ter_grass:
-        case ter_poke_grass:
           attron(COLOR_PAIR(COLOR_GREEN));
           mvaddch(y + 1, x, ':');
           attroff(COLOR_PAIR(COLOR_GREEN));
@@ -400,11 +399,13 @@ void io_pokemon()
   int input = 0;
   while (encouter)
   {
-    mvprintw(0, 0, "A wild %s appeared! \n Level: %d \n Health: %d \n", pokemon.name, pokemon.level, pokemon.hp);
+    mvprintw(0, 0, "A wild %s appeared! \n Level: %d \n Health: %d \n *press [esc] to leave\n", pokemon.name.c_str(), pokemon.level, pokemon.hp);
     input = getch();
     if (input == 27)
+    {
       clear();
-    encouter = 0;
+      encouter = 0;
+    }
   }
 }
 
@@ -479,11 +480,14 @@ uint32_t move_pc_dir(uint32_t input, pair_t dest)
     }
     break;
   }
-  if (world.cur_map->map[dest[dim_y]][dest[dim_x]] == ter_poke_grass)
+  if (world.cur_map->map[dest[dim_y]][dest[dim_x]] == ter_grass)
   {
-    io_pokemon();
-    dest[dim_x] = world.pc.pos[dim_x];
-    dest[dim_y] = world.pc.pos[dim_y];
+    int poke;
+    poke = rand() % 10;
+    if (poke == 1)
+    {
+      io_pokemon();
+    }
   }
 
   if ((world.cur_map->map[dest[dim_y]][dest[dim_x]] == ter_exit) &&
